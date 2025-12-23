@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civil Servant - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-landmark"></i>
+                <span>Civil Servant</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="homescreen.html">Dashboard</a></li>
+                <li><a href="relocation.html">Relocation</a></li>
+                <li><a href="swap.html">Swap</a></li>
+                <li><a href="resignation.html">Resignation</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Civil Servant Portal</h1>
+            <p>Streamlining administrative processes for government employees</p>
+            <div class="hero-buttons">
+                <a href="login.html" class="btn btn-primary">Login</a>
+                <a href="signup.html" class="btn btn-secondary">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="features">
+            <h2>Our Services</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <h3>Position Swap</h3>
+                    <p>Exchange positions with another civil servant based on mutual agreement and eligibility.</p>
+                    <a href="swap.html" class="feature-link">Learn More →</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-truck-moving"></i>
+                    </div>
+                    <h3>Relocation</h3>
+                    <p>Request transfer to a different location or department with proper approval workflow.</p>
+                    <a href="relocation.html" class="feature-link">Learn More →</a>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-signature"></i>
+                    </div>
+                    <h3>Resignation</h3>
+                    <p>Submit resignation requests with required documentation and track approval status.</p>
+                    <a href="resignation.html" class="feature-link">Learn More →</a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="info-section">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Create Account</h3>
+                    <p>Register with your official credentials and employee details.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Submit Request</h3>
+                    <p>Choose the service you need and fill out the required forms.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Track Progress</h3>
+                    <p>Monitor the status of your request through the approval workflow.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Receive Confirmation</h3>
+                    <p>Get notified once your request is approved and processed.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-landmark"></i>
+                <span>Civil Servant</span>
+            </div>
+            <p>Streamlining administrative processes for government employees since 2023</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <p class="copyright">&copy; <span class="current-year">2025</span> Civil Servant Portal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Update current year in footer
+        document.addEventListener('DOMContentLoaded', function() {
+            const yearElement = document.querySelector('.current-year');
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
+</body>
+</html>

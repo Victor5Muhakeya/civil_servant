@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civil Servant - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Homescreen specific styles */
+        .homescreen-page {
+            min-height: calc(100vh - 200px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+        }
+        
+        .homescreen-container {
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .homescreen-header {
+            margin-bottom: 3rem;
+        }
+        
+        .homescreen-header h1 {
+            font-size: 3rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+        
+        .homescreen-header p {
+            font-size: 1.2rem;
+            color: #7f8c8d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .user-welcome {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+        
+        .user-welcome h2 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .user-welcome p {
+            color: #7f8c8d;
+            margin: 0;
+        }
+        
+        .features-section {
+            margin-bottom: 3rem;
+        }
+        
+        .features-section h2 {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin-bottom: 2rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .feature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2.5rem 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+        }
+        
+        .feature-card.swap .feature-icon {
+            background-color: #fef9e7;
+            color: #f39c12;
+        }
+        
+        .feature-card.relocation .feature-icon {
+            background-color: #e8f6f3;
+            color: #2ecc71;
+        }
+        
+        .feature-card.resignation .feature-icon {
+            background-color: #fde8e8;
+            color: #e74c3c;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #2c3e50;
+        }
+        
+        .feature-card p {
+            color: #7f8c8d;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .feature-link {
+            color: #3498db;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 1rem;
+        }
+        
+        .logout-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #e9ecef;
+        }
+        
+        .logout-btn {
+            padding: 12px 30px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        /* Recent applications section */
+        .applications-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-top: 2rem;
+            text-align: left;
+        }
+        
+        .applications-section h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+        
+        .applications-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .application-item {
+            padding: 1.5rem;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+        }
+        
+        .application-item.resignation {
+            border-left-color: #e74c3c;
+        }
+        
+        .application-item.relocation {
+            border-left-color: #2ecc71;
+        }
+        
+        .application-item.swap {
+            border-left-color: #f39c12;
+        }
+        
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+        }
+        
+        .app-type {
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .app-status {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background-color: #fef9e7;
+            color: #b7950b;
+        }
+        
+        .status-processing {
+            background-color: #ebf5fb;
+            color: #3498db;
+        }
+        
+        .status-approved {
+            background-color: #e8f6f3;
+            color: #27ae60;
+        }
+        
+        .app-details p {
+            color: #7f8c8d;
+            margin-bottom: 0.5rem;
+        }
+        
+        .empty-applications {
+            text-align: center;
+            padding: 2rem;
+            color: #7f8c8d;
+            grid-column: 1 / -1;
+        }
+        
+        .empty-applications i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #bdc3c7;
+        }
+        
+        @media (max-width: 768px) {
+            .homescreen-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .feature-card {
+                padding: 2rem 1.5rem;
+            }
+            
+            .quick-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .applications-list {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-landmark"></i>
+                <span>Civil Servant</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="homescreen.html" class="active">Dashboard</a></li>
+                <li><a href="relocation.html">Relocation</a></li>
+                <li><a href="swap.html">Swap</a></li>
+                <li><a href="resignation.html">Resignation</a></li>
+                <li><a href="index.html">Logout</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="homescreen-page">
+        <div class="homescreen-container">
+            <div class="homescreen-header">
+                <h1>Civil Servant Dashboard</h1>
+                <!-- <p>Your centralized platform for managing career transitions and administrative processes</p>
+            -->
+                <div class="user-welcome">
+                    <h2 id="welcomeMessage">Welcome, User!</h2>
+                    <p id="userDetails">Access your services and track your applications</p>
+                </div>
+            </div>
+            
+            <div class="features-section">
+                <h2>Our Services</h2>
+                
+                <div class="features-grid">
+                    <a href="swap.html" class="feature-card swap">
+                        <div class="feature-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <h3>Position Swap</h3>
+                        <p>Exchange positions with another civil servant based on mutual agreement. Find compatible partners and initiate swap requests.</p>
+                        <div class="feature-link">
+                            <span>Access Swap Service</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                    
+                    <a href="relocation.html" class="feature-card relocation">
+                        <div class="feature-icon">
+                            <i class="fas fa-truck-moving"></i>
+                        </div>
+                        <h3>Relocation</h3>
+                        <p>Request transfer to a different location or department. Submit applications and track approval status in real-time.</p>
+                        <div class="feature-link">
+                            <span>Access Relocation Service</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                    
+                    <a href="resignation.html" class="feature-card resignation">
+                        <div class="feature-icon">
+                            <i class="fas fa-file-signature"></i>
+                        </div>
+                        <h3>Resignation</h3>
+                        <p>Submit formal resignation requests with required documentation. Track the approval process and clearance procedures.</p>
+                        <div class="feature-link">
+                            <span>Access Resignation Service</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Recent Applications Section -->
+            <div class="applications-section">
+                <h2><i class="fas fa-history"></i> Your Recent Applications</h2>
+                
+                <div class="applications-list" id="applicationsList">
+                    <!-- Applications will be dynamically loaded here -->
+                </div>
+                
+                <div class="empty-applications" id="noApplicationsMessage" style="display: none;">
+                    <i class="fas fa-inbox"></i>
+                    <h3>No Applications Yet</h3>
+                    <p>You haven't submitted any applications yet. Click on any service above to get started.</p>
+                </div>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalApplications">0</div>
+                    <div class="stat-label">Total Applications</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number" id="pendingApplications">0</div>
+                    <div class="stat-label">Pending Review</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number" id="approvedApplications">0</div>
+                    <div class="stat-label">Approved</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number" id="completionRate">0%</div>
+                    <div class="stat-label">Completion Rate</div>
+                </div>
+            </div>
+            
+            <div class="logout-section">
+                <button class="logout-btn" id="logoutButton">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-landmark"></i>
+                <span>Civil Servant</span>
+            </div>
+            <p>Streamlining administrative processes for government employees since 2023</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <p class="copyright">&copy; <span class="current-year">2025</span> Civil Servant Portal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Homescreen JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (isLoggedIn !== 'true') {
+                // Redirect to login page if not logged in
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Get user data from localStorage
+            const userData = JSON.parse(localStorage.getItem('userData') || '{}');
+            const userEmail = localStorage.getItem('userEmail') || 'demo@civilservant.gov';
+            
+            // Update user welcome message
+            updateUserWelcome(userData, userEmail);
+            
+            // Load and display applications
+            loadApplications();
+            
+            // Setup logout button
+            setupLogoutButton();
+            
+            function updateUserWelcome(userData, userEmail) {
+                const welcomeMessage = document.getElementById('welcomeMessage');
+                const userDetails = document.getElementById('userDetails');
+                
+                const firstName = userData.firstName || 'Victor';
+                const lastName = userData.lastName || 'Muhakeya';
+                const position = userData.position || 'Government Employee';
+                const employeeId = userData.employeeId || 'CS-2023-001';
+                
+                if (welcomeMessage) {
+                    welcomeMessage.textContent = `Welcome, ${firstName} ${lastName}!`;
+                }
+                
+                if (userDetails) {
+                    userDetails.textContent = `${position} | Employee ID: ${employeeId}`;
+                }
+            }
+            
+            function loadApplications() {
+                // Get applications from localStorage
+                const relocationRequests = JSON.parse(localStorage.getItem('relocationRequests') || '[]');
+                const swapRequests = JSON.parse(localStorage.getItem('swapRequests') || '[]');
+                const resignationRequests = JSON.parse(localStorage.getItem('resignationRequests') || '[]');
+                
+                // Combine all applications
+                const allApplications = [];
+                
+                // Add relocation applications
+                relocationRequests.forEach(request => {
+                    allApplications.push({
+                        type: 'relocation',
+                        id: request.requestId || 'REL-' + Math.floor(Math.random() * 1000),
+                        date: request.submissionDate || new Date().toLocaleDateString(),
+                        status: request.status || 'processing',
+                        details: {
+                            fromDepartment: request.currentDepartment || 'Not specified',
+                            toDepartment: request.requestedDepartment || 'Not specified',
+                            toLocation: request.requestedLocation || 'Not specified'
+                        }
+                    });
+                });
+                
+                // Add swap applications
+                swapRequests.forEach(request => {
+                    allApplications.push({
+                        type: 'swap',
+                        id: 'SWAP-' + Math.floor(Math.random() * 1000),
+                        date: request.submissionDate || new Date().toLocaleDateString(),
+                        status: 'negotiating',
+                        details: {
+                            partner: request.partner || 'Not specified',
+                            swapDate: request.date || 'Not specified'
+                        }
+                    });
+                });
+                
+                // Add resignation applications
+                resignationRequests.forEach(request => {
+                    allApplications.push({
+                        type: 'resignation',
+                        id: request.requestId || 'RES-' + Math.floor(Math.random() * 1000),
+                        date: request.submissionDate || new Date().toLocaleDateString(),
+                        status: request.status || 'processing',
+                        details: {
+                            lastWorkingDay: request.lastWorkingDay || 'Not specified',
+                            reason: request.reason || 'Not specified'
+                        }
+                    });
+                });
+                
+                // Add demo applications if no real ones exist
+                if (allApplications.length === 0) {
+                    allApplications.push(
+                        {
+                            type: 'relocation',
+                            id: 'REL-2023-015',
+                            date: 'Oct 15, 2023',
+                            status: 'processing',
+                            details: {
+                                fromDepartment: 'Education',
+                                toDepartment: 'Health',
+                                toLocation: 'Coastal City'
+                            }
+                        },
+                        {
+                            type: 'swap',
+                            id: 'SWAP-2023-012',
+                            date: 'Oct 5, 2023',
+                            status: 'negotiating',
+                            details: {
+                                partner: 'John Doe',
+                                swapDate: 'Jan 15, 2024'
+                            }
+                        }
+                    );
+                }
+                
+                // Sort applications by date (newest first)
+                allApplications.sort((a, b) => {
+                    // Simple date comparison for demo
+                    const dateA = new Date(a.date);
+                    const dateB = new Date(b.date);
+                    return dateB - dateA;
+                });
+                
+                // Update statistics
+                updateStatistics(allApplications);
+                
+                // Display applications
+                displayApplications(allApplications);
+            }
+            
+            function updateStatistics(applications) {
+                const totalApplications = applications.length;
+                const pendingApplications = applications.filter(app => 
+                    app.status === 'pending' || app.status === 'processing' || app.status === 'negotiating'
+                ).length;
+                const approvedApplications = applications.filter(app => 
+                    app.status === 'approved'
+                ).length;
+                
+                // Calculate completion rate (simple demo logic)
+                let completionRate = 0;
+                if (totalApplications > 0) {
+                    const completedApps = applications.filter(app => 
+                        app.status === 'approved' || app.status === 'completed'
+                    ).length;
+                    completionRate = Math.round((completedApps / totalApplications) * 100);
+                }
+                
+                // Update DOM elements
+                document.getElementById('totalApplications').textContent = totalApplications;
+                document.getElementById('pendingApplications').textContent = pendingApplications;
+                document.getElementById('approvedApplications').textContent = approvedApplications;
+                document.getElementById('completionRate').textContent = completionRate + '%';
+            }
+            
+            function displayApplications(applications) {
+                const applicationsList = document.getElementById('applicationsList');
+                const noApplicationsMessage = document.getElementById('noApplicationsMessage');
+                
+                // Clear existing content
+                applicationsList.innerHTML = '';
+                
+                if (applications.length === 0) {
+                    noApplicationsMessage.style.display = 'block';
+                    return;
+                }
+                
+                noApplicationsMessage.style.display = 'none';
+                
+                // Show only the 3 most recent applications
+                const recentApplications = applications.slice(0, 3);
+                
+                recentApplications.forEach(app => {
+                    const appItem = document.createElement('div');
+                    appItem.className = `application-item ${app.type}`;
+                    
+                    // Format status text
+                    let statusText = app.status;
+                    let statusClass = 'status-pending';
+                    
+                    if (app.status === 'processing') {
+                        statusText = 'In Progress';
+                        statusClass = 'status-processing';
+                    } else if (app.status === 'approved') {
+                        statusText = 'Approved';
+                        statusClass = 'status-approved';
+                    } else if (app.status === 'negotiating') {
+                        statusText = 'Negotiating';
+                        statusClass = 'status-processing';
+                    }
+                    
+                    // Format type text
+                    let typeText = app.type.charAt(0).toUpperCase() + app.type.slice(1);
+                    if (app.type === 'relocation') typeText = 'Relocation Request';
+                    if (app.type === 'swap') typeText = 'Swap Proposal';
+                    if (app.type === 'resignation') typeText = 'Resignation Request';
+                    
+                    // Create application details HTML
+                    let detailsHTML = '';
+                    
+                    if (app.type === 'relocation') {
+                        detailsHTML = `
+                            <p><strong>From:</strong> ${app.details.fromDepartment}</p>
+                            <p><strong>To:</strong> ${app.details.toDepartment} (${app.details.toLocation})</p>
+                        `;
+                    } else if (app.type === 'swap') {
+                        detailsHTML = `
+                            <p><strong>Partner:</strong> ${app.details.partner}</p>
+                            <p><strong>Swap Date:</strong> ${app.details.swapDate}</p>
+                        `;
+                    } else if (app.type === 'resignation') {
+                        detailsHTML = `
+                            <p><strong>Last Day:</strong> ${app.details.lastWorkingDay}</p>
+                            <p><strong>Reason:</strong> ${app.details.reason}</p>
+                        `;
+                    }
+                    
+                    appItem.innerHTML = `
+                        <div class="app-header">
+                            <div class="app-type">${typeText}</div>
+                            <div class="app-status ${statusClass}">${statusText}</div>
+                        </div>
+                        <div class="app-details">
+                            <p><strong>ID:</strong> ${app.id}</p>
+                            <p><strong>Submitted:</strong> ${app.date}</p>
+                            ${detailsHTML}
+                        </div>
+                    `;
+                    
+                    // Add click event to navigate to respective page
+                    appItem.addEventListener('click', function() {
+                        if (app.type === 'relocation') {
+                            window.location.href = 'relocation.html';
+                        } else if (app.type === 'swap') {
+                            window.location.href = 'swap.html';
+                        } else if (app.type === 'resignation') {
+                            window.location.href = 'resignation.html';
+                        }
+                    });
+                    
+                    applicationsList.appendChild(appItem);
+                });
+            }
+            
+            function setupLogoutButton() {
+                const logoutButton = document.getElementById('logoutButton');
+                
+                if (logoutButton) {
+                    logoutButton.addEventListener('click', function() {
+                        // Clear login data
+                        localStorage.removeItem('isLoggedIn');
+                        localStorage.removeItem('userEmail');
+                        localStorage.removeItem('rememberMe');
+                        
+                        // Redirect to main page
+                        window.location.href = 'index.html';
+                    });
+                }
+            }
+            
+            // Update current year in footer
+            const yearElement = document.querySelector('.current-year');
+            if (yearElement) {
+                yearElement.textContent = new Date().getFullYear();
+            }
+        });
+    </script>
+</body>
+</html>

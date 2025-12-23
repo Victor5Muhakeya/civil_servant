@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civil Servant - Relocation Request</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Additional styles for relocation page */
+        .relocation-page {
+            min-height: calc(100vh - 200px);
+            padding: 2rem 1rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .page-header p {
+            color: #7f8c8d;
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .relocation-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .relocation-tabs {
+            display: flex;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 1.2rem;
+            text-align: center;
+            font-weight: 600;
+            color: #7f8c8d;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-bottom: 3px solid transparent;
+        }
+        
+        .tab:hover {
+            background-color: #e9ecef;
+            color: #2c3e50;
+        }
+        
+        .tab.active {
+            color: #3498db;
+            border-bottom-color: #3498db;
+            background-color: white;
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 2.5rem;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .relocation-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .form-group label .required {
+            color: #e74c3c;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        
+        .form-column {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 1em;
+            padding-right: 40px;
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .reason-box {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #3498db;
+        }
+        
+        .reason-box h3 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .reason-box h3 i {
+            color: #3498db;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .radio-option input[type="radio"] {
+            margin: 0;
+        }
+        
+        .radio-option label {
+            margin: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        
+        .other-reason {
+            margin-top: 1.5rem;
+            display: none;
+        }
+        
+        .other-reason.show {
+            display: block;
+        }
+        
+        .upload-area {
+            border: 2px dashed #3498db;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin: 1rem 0;
+            background-color: rgba(52, 152, 219, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .upload-area i {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+        
+        .upload-area p {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        
+        .upload-area .file-types {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        
+        .preview-container {
+            margin-top: 1.5rem;
+            display: none;
+        }
+        
+        .preview-container.show {
+            display: block;
+        }
+        
+        .preview-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 0.8rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        .preview-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .preview-icon {
+            color: #3498db;
+            font-size: 1.5rem;
+        }
+        
+        .file-details h4 {
+            margin-bottom: 0.2rem;
+            font-size: 1rem;
+        }
+        
+        .file-details p {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin: 0;
+        }
+        
+        .remove-file {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .submit-btn:hover {
+            background-color: #2980b9;
+        }
+        
+        .submit-btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+        
+        .alert {
+            padding: 12px 15px;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .alert-error {
+            background-color: #fde8e8;
+            color: #c53030;
+            border-left: 4px solid #c53030;
+        }
+        
+        .alert-success {
+            background-color: #e6fffa;
+            color: #234e52;
+            border-left: 4px solid #38b2ac;
+        }
+        
+        .alert-info {
+            background-color: #ebf8ff;
+            color: #2c5282;
+            border-left: 4px solid #3498db;
+        }
+        
+        .status-tracker {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .status-tracker h3 {
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        .status-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+        
+        .status-steps::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: #e9ecef;
+            z-index: 1;
+        }
+        
+        .status-step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        
+        .status-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            color: #7f8c8d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .status-step.active .status-icon {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .status-step.completed .status-icon {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .status-label {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+        
+        .status-step.active .status-label {
+            color: #3498db;
+        }
+        
+        .status-step.completed .status-label {
+            color: #2ecc71;
+        }
+        
+        .request-details {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .request-details h3 {
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid #f8f9fa;
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f8f9fa;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #2c3e50;
+            width: 200px;
+            flex-shrink: 0;
+        }
+        
+        .detail-value {
+            color: #555;
+            flex: 1;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .action-btn {
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .action-btn.edit {
+            background-color: #f39c12;
+            color: white;
+        }
+        
+        .action-btn.edit:hover {
+            background-color: #d68910;
+        }
+        
+        .action-btn.cancel {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        .action-btn.cancel:hover {
+            background-color: #c0392b;
+        }
+        
+        .action-btn.download {
+            background-color: #2c3e50;
+            color: white;
+        }
+        
+        .action-btn.download:hover {
+            background-color: #1a252f;
+        }
+        
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        
+        .history-table th,
+        .history-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .history-table th {
+            background-color: #f8f9fa;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .history-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background-color: #fef9e7;
+            color: #b7950b;
+        }
+        
+        .status-approved {
+            background-color: #e8f6f3;
+            color: #27ae60;
+        }
+        
+        .status-rejected {
+            background-color: #fdedec;
+            color: #c0392b;
+        }
+        
+        .status-processing {
+            background-color: #ebf5fb;
+            color: #3498db;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #7f8c8d;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: #bdc3c7;
+        }
+        
+        @media (max-width: 768px) {
+            .relocation-tabs {
+                flex-direction: column;
+            }
+            
+            .status-steps {
+                flex-wrap: wrap;
+                gap: 1.5rem;
+            }
+            
+            .status-step {
+                flex: 0 0 calc(50% - 0.75rem);
+            }
+            
+            .detail-row {
+                flex-direction: column;
+            }
+            
+            .detail-label {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-landmark"></i>
+                <span>Civil Servant</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="relocation.html" class="active">Relocation</a></li>
+                <li><a href="swap.html">Swap</a></li>
+                <li><a href="resignation.html">Resignation</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="relocation-page">
+        <div class="page-header">
+            <h1><i class="fas fa-truck-moving"></i> Relocation Request</h1>
+            <p>Submit a request to transfer to a different location or department. Track the status of your request and manage all your relocation applications in one place.</p>
+        </div>
+        
+        <div class="relocation-container">
+            <!-- Tabs Navigation -->
+            <div class="relocation-tabs">
+                <div class="tab active" data-tab="new-request">New Request</div>
+                <div class="tab" data-tab="track-status">Track Status</div>
+                <div class="tab" data-tab="history">Request History</div>
+            </div>
+            
+            <!-- Tab 1: New Relocation Request -->
+            <div class="tab-content active" id="new-request">
+                <div class="relocation-form">
+                    <h2 style="margin-bottom: 1.5rem; color: #2c3e50;">New Relocation Request</h2>
+                    
+                    <!-- Alert Messages -->
+                    <div id="error-message" class="alert alert-error" style="display: none;">
+                        Please fill in all required fields correctly.
+                    </div>
+                    
+                    <div id="success-message" class="alert alert-success" style="display: none;">
+                        Your relocation request has been submitted successfully! Request ID: <strong id="requestId">#REL-2023-001</strong>
+                    </div>
+                    
+                    <form id="relocation-form">
+                        <!-- Current Position Information -->
+                        <div class="reason-box">
+                            <h3><i class="fas fa-info-circle"></i> Current Position Information</h3>
+                            <div class="form-row">
+                                <div class="form-column">
+                                    <div class="form-group">
+                                        <label for="currentDepartment">Current Department <span class="required">*</span></label>
+                                        <select id="currentDepartment" class="form-control" required>
+                                            <option value="">Select Department</option>
+                                            <option value="education">Education</option>
+                                            <option value="health">Health</option>
+                                            <option value="finance">Finance</option>
+                                            <option value="transport">Transport</option>
+                                            <option value="justice">Justice</option>
+                                            <option value="defense">Defense</option>
+                                            <option value="foreign">Foreign Affairs</option>
+                                            <option value="interior">Interior</option>
+                                            <option value="agriculture">Agriculture</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-column">
+                                    <div class="form-group">
+                                        <label for="currentPosition">Current Position <span class="required">*</span></label>
+                                        <input type="text" id="currentPosition" class="form-control" placeholder="Enter your current position" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-column">
+                                    <div class="form-group">
+                                        <label for="currentLocation">Current Location <span class="required">*</span></label>
+                                        <input type="text" id="currentLocation" class="form-control" placeholder="Enter your current work location" required>
+                                    </div>
+                                </div>
+                                <div class="form-column">
+                                    <div class="form-group">
+                                        <label for="currentGrade">Current Grade Level <span class="required">*</span></label>
+                                        <select id="currentGrade" class="form-control" required>
+                                            <option value="">Select Grade Level</option>
+                                            <option value="1">Level 1</option>
+                                            <option value="2">Level 2</option>
+                                            <option value="3">Level 3</option>
+                                            <option value="4">Level 4</option>
+                                            <option value="5">Level 5</option>
+                                            <option value="6">Level 6</option>
+                                            <option value="7">Level 7</option>
+                                            <option value="8">Level 8</option>
+                                            <option value="9">Level 9</option>
+                                            <option value="10">Level 10</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Requested Position Information -->
+                        <div class="reason-box">
+                            <h3><i class="fas fa-map-marker-alt"></i> Requested Position Information</h3>
+                            <div class="form-row">
+                                <div class="form-column">
+                                    <div class="form-group">
+                                       <!-- <label for="requestedDepartment">Requested Department <span class="required">*</span></label>
+                                        <select id="requestedDepartment" class="form-control" required>
+                                            <option value="">Select Department</option>
+                                            <option value="education">Education</option>
+                                            <option value="health">Health</option>
+                                            <option value="finance">Finance</option>
+                                            <option value="transport">Transport</option>
+                                            <option value="justice">Justice</option>
+                                            <option value="defense">Defense</option>
+                                            <option value="foreign">Foreign Affairs</option>
+                                            <option value="interior">Interior</option>
+                                            <option value="agriculture">Agriculture</option>
+                                        </select>
+                                    -->
+                                    </div>
+                                </div>
+                                <div class="form-column">
+                                    <div class="form-group">
+                                        <!--<label for="requestedPosition">Requested Position</label>
+                                        <input type="text" id="requestedPosition" class="form-control" placeholder="Enter requested position (if any)">
+                                    -->
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-column">
+                                    <div class="form-group">
+                                        <label for="requestedLocation">Requested Location <span class="required">*</span></label>
+                                        <input type="text" id="requestedLocation" class="form-control" placeholder="Enter desired work location" required>
+                                    </div>
+                                </div>
+                                <div class="form-column">
+                                    <div class="form-group">
+                                        <label for="preferredStartDate">Preferred Start Date <span class="required">*</span></label>
+                                        <input type="date" id="preferredStartDate" class="form-control" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Relocation Reason -->
+                        <div class="reason-box">
+                            <h3><i class="fas fa-question-circle"></i> Reason for Relocation <span class="required">*</span></h3>
+                            
+                            <div class="radio-group">
+                                <div class="radio-option">
+                                    <input type="radio" id="reasonHealth" name="relocationReason" value="health">
+                                    <label for="reasonHealth">Health reasons</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="reasonFamily" name="relocationReason" value="family">
+                                    <label for="reasonFamily">Family reasons</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="reasonCareer" name="relocationReason" value="career">
+                                    <label for="reasonCareer">Career advancement</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="reasonPersonal" name="relocationReason" value="personal">
+                                    <label for="reasonPersonal">Personal reasons</label>
+                                </div>
+                                <div class="radio-option">
+                                    <input type="radio" id="reasonOther" name="relocationReason" value="other">
+                                    <label for="reasonOther">Other</label>
+                                </div>
+                            </div>
+                            
+                            <div class="other-reason" id="otherReasonContainer">
+                                <div class="form-group">
+                                    <label for="otherReason">Please specify <span class="required">*</span></label>
+                                    <textarea id="otherReason" class="form-control" placeholder="Please specify your reason for relocation"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Additional Information -->
+                        <div class="form-group">
+                            <label for="additionalInfo">Additional Information</label>
+                            <textarea id="additionalInfo" class="form-control" placeholder="Any additional information that might support your request (e.g., special skills, qualifications, etc.)"></textarea>
+                        </div>
+                        
+                        <!-- Supporting Documents -->
+                        <div class="reason-box">
+                            <h3><i class="fas fa-paperclip"></i> Supporting Documents</h3>
+                            <p>Upload any supporting documents for your relocation request (medical certificates, recommendation letters, etc.).</p>
+                            
+                            <div class="upload-area" id="uploadArea">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p><strong>Click to upload</strong> or drag and drop</p>
+                                <p class="file-types">PDF, DOC, DOCX, JPG, PNG up to 10MB</p>
+                            </div>
+                            
+                            <input type="file" id="documentUpload" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple style="display: none;">
+                            
+                            <div class="preview-container" id="previewContainer">
+                                <!-- Files will be dynamically added here -->
+                            </div>
+                        </div>
+                        
+                        <!-- Terms and Submission -->
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <input type="checkbox" id="declaration" required>
+                                <label for="declaration">
+                                    I declare that the information provided is true and accurate to the best of my knowledge. 
+                                    I understand that false information may result in disciplinary action.
+                                    <span class="required">*</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="submit-btn" id="submitButton">
+                            <i class="fas fa-paper-plane"></i>
+                            <span id="buttonText">Submit Relocation Request</span>
+                            <span id="buttonSpinner" style="display: none;">
+                                <i class="fas fa-spinner fa-spin"></i> Submitting...
+                            </span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Tab 2: Track Status -->
+            <div class="tab-content" id="track-status">
+                <div style="padding: 2.5rem;">
+                    <h2 style="margin-bottom: 1.5rem; color: #2c3e50;">Track Your Request Status</h2>
+                    
+                    <!-- Search Request Form -->
+                    <div class="reason-box" style="margin-bottom: 2rem;">
+                        <h3><i class="fas fa-search"></i> Find Your Request</h3>
+                        <div class="form-row">
+                            <div class="form-column">
+                                <div class="form-group">
+                                    <label for="searchRequestId">Request ID</label>
+                                    <input type="text" id="searchRequestId" class="form-control" placeholder="Enter your request ID (e.g., REL-2023-001)">
+                                </div>
+                            </div>
+                            <div class="form-column">
+                                <div class="form-group">
+                                    <label for="searchEmail">Email Address</label>
+                                    <input type="email" id="searchEmail" class="form-control" placeholder="Enter your registered email">
+                                </div>
+                            </div>
+                        </div>
+                        <button class="action-btn download" id="searchButton" style="margin-top: 1rem;">
+                            <i class="fas fa-search"></i> Search Request
+                        </button>
+                    </div>
+                    
+                    <!-- Demo Request Status -->
+                    <div id="statusResult" style="display: block;">
+                        <div class="status-tracker">
+                            <h3>Request Status: <span class="status-badge status-processing">Processing</span></h3>
+                            <p style="text-align: center; margin-bottom: 1.5rem; color: #555;">Request ID: <strong>#REL-2023-015</strong> | Submitted: October 15, 2023</p>
+                            
+                            <div class="status-steps">
+                                <div class="status-step completed">
+                                    <div class="status-icon">
+                                        <i class="fas fa-file-upload"></i>
+                                    </div>
+                                    <div class="status-label">Submitted</div>
+                                </div>
+                                <div class="status-step completed">
+                                    <div class="status-icon">
+                                        <i class="fas fa-check-circle"></i>
+                                    </div>
+                                    <div class="status-label">Under Review</div>
+                                </div>
+                                <div class="status-step active">
+                                    <div class="status-icon">
+                                        <i class="fas fa-clipboard-check"></i>
+                                    </div>
+                                    <div class="status-label">Department Approval</div>
+                                </div>
+                                <div class="status-step">
+                                    <div class="status-icon">
+                                        <i class="fas fa-user-tie"></i>
+                                    </div>
+                                    <div class="status-label">HR Approval</div>
+                                </div>
+                                <div class="status-step">
+                                    <div class="status-icon">
+                                        <i class="fas fa-check-double"></i>
+                                    </div>
+                                    <div class="status-label">Completed</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="request-details">
+                            <h3>Request Details</h3>
+                            <div class="detail-row">
+                                <div class="detail-label">Current Department:</div>
+                                <div class="detail-value">Education</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Current Location:</div>
+                                <div class="detail-value">Central Office, Capital City</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Requested Department:</div>
+                                <div class="detail-value">Health</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Requested Location:</div>
+                                <div class="detail-value">Regional Hospital, Coastal City</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Reason for Relocation:</div>
+                                <div class="detail-value">Health reasons (supporting document provided)</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Preferred Start Date:</div>
+                                <div class="detail-value">January 15, 2024</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Estimated Completion:</div>
+                                <div class="detail-value">December 10, 2023</div>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <button class="action-btn download">
+                                    <i class="fas fa-download"></i> Download Request Copy
+                                </button>
+                                <button class="action-btn edit">
+                                    <i class="fas fa-edit"></i> Update Request
+                                </button>
+                                <button class="action-btn cancel">
+                                    <i class="fas fa-times"></i> Cancel Request
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Tab 3: Request History -->
+            <div class="tab-content" id="history">
+                <div style="padding: 2.5rem;">
+                    <h2 style="margin-bottom: 1.5rem; color: #2c3e50;">Relocation Request History</h2>
+                    
+                    <div class="request-details" style="margin-bottom: 2rem;">
+                        <h3>Filter History</h3>
+                        <div class="form-row">
+                            <div class="form-column">
+                                <div class="form-group">
+                                    <label for="filterStatus">Status</label>
+                                    <select id="filterStatus" class="form-control">
+                                        <option value="">All Status</option>
+                                        <option value="pending">Pending</option>
+                                        <option value="approved">Approved</option>
+                                        <option value="rejected">Rejected</option>
+                                        <option value="processing">Processing</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-column">
+                                <div class="form-group">
+                                    <label for="filterYear">Year</label>
+                                    <select id="filterYear" class="form-control">
+                                        <option value="">All Years</option>
+                                        <option value="2023">2023</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2021">2021</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-column">
+                                <div class="form-group">
+                                    <label for="filterDepartment">Department</label>
+                                    <select id="filterDepartment" class="form-control">
+                                        <option value="">All Departments</option>
+                                        <option value="education">Education</option>
+                                        <option value="health">Health</option>
+                                        <option value="finance">Finance</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="action-btn download" id="filterButton" style="margin-top: 1rem;">
+                            <i class="fas fa-filter"></i> Apply Filters
+                        </button>
+                    </div>
+                    
+                    <!-- History Table -->
+                    <div class="request-details">
+                        <h3>Your Relocation Requests</h3>
+                        
+                        <table class="history-table">
+                            <thead>
+                                <tr>
+                                    <th>Request ID</th>
+                                    <th>Date Submitted</th>
+                                    <th>From Department</th>
+                                    <th>To Department</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>#REL-2023-015</td>
+                                    <td>Oct 15, 2023</td>
+                                    <td>Education</td>
+                                    <td>Health</td>
+                                    <td><span class="status-badge status-processing">Processing</span></td>
+                                    <td>
+                                        <button class="action-btn download" style="padding: 5px 10px; font-size: 0.85rem;">
+                                            <i class="fas fa-eye"></i> View
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#REL-2023-008</td>
+                                    <td>Jul 22, 2023</td>
+                                    <td>Education</td>
+                                    <td>Finance</td>
+                                    <td><span class="status-badge status-approved">Approved</span></td>
+                                    <td>
+                                        <button class="action-btn download" style="padding: 5px 10px; font-size: 0.85rem;">
+                                            <i class="fas fa-eye"></i> View
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>#REL-2022-112</td>
+                                    <td>Dec 5, 2022</td>
+                                    <td>Education</td>
+                                    <td>Transport</td>
+                                    <td><span class="status-badge status-rejected">Rejected</span></td>
+                                    <td>
+                                        <button class="action-btn download" style="padding: 5px 10px; font-size: 0.85rem;">
+                                            <i class="fas fa-eye"></i> View
+                                        </td>
+                                </tr>
+                                <tr>
+                                    <td>#REL-2022-045</td>
+                                    <td>May 18, 2022</td>
+                                    <td>Education</td>
+                                    <td>Justice</td>
+                                    <td><span class="status-badge status-approved">Approved</span></td>
+                                    <td>
+                                        <button class="action-btn download" style="padding: 5px 10px; font-size: 0.85rem;">
+                                            <i class="fas fa-eye"></i> View
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <!-- Pagination (simplified) -->
+                        <div style="display: flex; justify-content: center; margin-top: 2rem; gap: 10px;">
+                            <button class="action-btn" style="background-color: #f8f9fa; color: #333; padding: 8px 15px;">
+                                <i class="fas fa-chevron-left"></i> Previous
+                            </button>
+                            <button class="action-btn" style="background-color: #3498db; color: white; padding: 8px 15px;">
+                                1
+                            </button>
+                            <button class="action-btn" style="background-color: #f8f9fa; color: #333; padding: 8px 15px;">
+                                2
+                            </button>
+                            <button class="action-btn" style="background-color: #f8f9fa; color: #333; padding: 8px 15px;">
+                                3
+                            </button>
+                            <button class="action-btn" style="background-color: #f8f9fa; color: #333; padding: 8px 15px;">
+                                Next <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-landmark"></i>
+                <span>Civil Servant</span>
+            </div>
+            <p>Streamlining administrative processes for government employees since 2023</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <p class="copyright">&copy; <span class="current-year">2023</span> Civil Servant Portal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Relocation page specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab functionality
+            const tabs = document.querySelectorAll('.tab');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabId = this.getAttribute('data-tab');
+                    
+                    // Remove active class from all tabs and contents
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+            
+            // Other reason textarea toggle
+            const reasonRadios = document.querySelectorAll('input[name="relocationReason"]');
+            const otherReasonContainer = document.getElementById('otherReasonContainer');
+            
+            reasonRadios.forEach(radio => {
+                radio.addEventListener('change', function() {
+                    if (this.value === 'other') {
+                        otherReasonContainer.classList.add('show');
+                        document.getElementById('otherReason').required = true;
+                    } else {
+                        otherReasonContainer.classList.remove('show');
+                        document.getElementById('otherReason').required = false;
+                    }
+                });
+            });
+            
+            // File upload functionality
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('documentUpload');
+            const previewContainer = document.getElementById('previewContainer');
+            
+            let uploadedFiles = [];
+            
+            if (uploadArea && fileInput) {
+                uploadArea.addEventListener('click', function() {
+                    fileInput.click();
+                });
+                
+                uploadArea.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    this.style.backgroundColor = 'rgba(52, 152, 219, 0.2)';
+                });
+                
+                uploadArea.addEventListener('dragleave', function() {
+                    this.style.backgroundColor = 'rgba(52, 152, 219, 0.05)';
+                });
+                
+                uploadArea.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    this.style.backgroundColor = 'rgba(52, 152, 219, 0.05)';
+                    
+                    if (e.dataTransfer.files.length) {
+                        handleFileUpload(e.dataTransfer.files);
+                    }
+                });
+                
+                fileInput.addEventListener('change', function() {
+                    if (this.files.length) {
+                        handleFileUpload(this.files);
+                    }
+                });
+            }
+            
+            function handleFileUpload(files) {
+                const maxSize = 10 * 1024 * 1024; // 10MB
+                const validTypes = ['application/pdf', 'application/msword', 
+                                  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                                  'image/jpeg', 'image/jpg', 'image/png'];
+                
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    
+                    // Validate file
+                    if (!validTypes.includes(file.type)) {
+                        alert(`File "${file.name}" is not a supported file type.`);
+                        continue;
+                    }
+                    
+                    if (file.size > maxSize) {
+                        alert(`File "${file.name}" exceeds the 10MB size limit.`);
+                        continue;
+                    }
+                    
+                    // Add to uploaded files array
+                    uploadedFiles.push(file);
+                    
+                    // Create preview item
+                    const previewItem = document.createElement('div');
+                    previewItem.className = 'preview-item';
+                    previewItem.dataset.fileName = file.name;
+                    
+                    const fileIcon = file.type.includes('image') ? 'fa-file-image' : 
+                                   file.type.includes('pdf') ? 'fa-file-pdf' : 'fa-file-word';
+                    
+                    previewItem.innerHTML = `
+                        <div class="preview-info">
+                            <i class="fas ${fileIcon} preview-icon"></i>
+                            <div class="file-details">
+                                <h4>${file.name}</h4>
+                                <p>${formatFileSize(file.size)}</p>
+                            </div>
+                        </div>
+                        <button type="button" class="remove-file" onclick="removeUploadedFile('${file.name}')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    
+                    previewContainer.appendChild(previewItem);
+                }
+                
+                // Show preview container if there are files
+                if (uploadedFiles.length > 0) {
+                    previewContainer.classList.add('show');
+                }
+            }
+            
+            // Make removeUploadedFile function available globally
+            window.removeUploadedFile = function(fileName) {
+                // Remove from array
+                uploadedFiles = uploadedFiles.filter(file => file.name !== fileName);
+                
+                // Remove from DOM
+                const previewItem = document.querySelector(`.preview-item[data-file-name="${fileName}"]`);
+                if (previewItem) {
+                    previewItem.remove();
+                }
+                
+                // Hide preview container if no files left
+                if (uploadedFiles.length === 0) {
+                    previewContainer.classList.remove('show');
+                }
+            };
+            
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+            
+            // Form submission
+            const relocationForm = document.getElementById('relocation-form');
+            const submitButton = document.getElementById('submitButton');
+            const buttonText = document.getElementById('buttonText');
+            const buttonSpinner = document.getElementById('buttonSpinner');
+            const errorMessage = document.getElementById('error-message');
+            const successMessage = document.getElementById('success-message');
+            const requestIdElement = document.getElementById('requestId');
+            
+            if (relocationForm) {
+                relocationForm.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    
+                    if (validateRelocationForm()) {
+                        // Show loading state
+                        buttonText.style.display = 'none';
+                        buttonSpinner.style.display = 'inline';
+                        submitButton.disabled = true;
+                        
+                        // Hide any previous messages
+                        errorMessage.style.display = 'none';
+                        successMessage.style.display = 'none';
+                        
+                        // Generate a request ID
+                        const requestId = 'REL-' + new Date().getFullYear() + '-' + 
+                                         String(Math.floor(Math.random() * 1000)).padStart(3, '0');
+                        
+                        // Simulate API call delay
+                        setTimeout(function() {
+                            // Successful submission
+                            requestIdElement.textContent = `#${requestId}`;
+                            successMessage.style.display = 'block';
+                            errorMessage.style.display = 'none';
+                            
+                            // Store request data in localStorage (for demo purposes)
+                            const formData = {
+                                requestId: requestId,
+                                currentDepartment: document.getElementById('currentDepartment').value,
+                                requestedDepartment: document.getElementById('requestedDepartment').value,
+                                requestedLocation: document.getElementById('requestedLocation').value,
+                                submissionDate: new Date().toLocaleDateString(),
+                                status: 'pending'
+                            };
+                            
+                            // Get existing requests or create new array
+                            const existingRequests = JSON.parse(localStorage.getItem('relocationRequests') || '[]');
+                            existingRequests.push(formData);
+                            localStorage.setItem('relocationRequests', JSON.stringify(existingRequests));
+                            
+                            // Reset form after 5 seconds
+                            setTimeout(function() {
+                                relocationForm.reset();
+                                uploadedFiles = [];
+                                previewContainer.classList.remove('show');
+                                previewContainer.innerHTML = '';
+                                
+                                // Reset button state
+                                buttonText.style.display = 'inline';
+                                buttonSpinner.style.display = 'none';
+                                submitButton.disabled = false;
+                                
+                                // Hide success message
+                                successMessage.style.display = 'none';
+                                
+                                // Switch to track status tab
+                                tabs.forEach(t => t.classList.remove('active'));
+                                tabContents.forEach(c => c.classList.remove('active'));
+                                
+                                document.querySelector('.tab[data-tab="track-status"]').classList.add('active');
+                                document.getElementById('track-status').classList.add('active');
+                            }, 5000);
+                        }, 2000); // Simulate network delay
+                    }
+                });
+            }
+            
+            function validateRelocationForm() {
+                let isValid = true;
+                const requiredFields = relocationForm.querySelectorAll('[required]');
+                
+                // Hide error message
+                errorMessage.style.display = 'none';
+                
+                // Check required fields
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = '#e74c3c';
+                    } else {
+                        field.style.borderColor = '#ddd';
+                    }
+                });
+                
+                // Check if at least one reason is selected
+                const selectedReason = document.querySelector('input[name="relocationReason"]:checked');
+                if (!selectedReason) {
+                    isValid = false;
+                    errorMessage.textContent = 'Please select a reason for relocation.';
+                    errorMessage.style.display = 'block';
+                }
+                
+                // Check if other reason is specified when selected
+                if (selectedReason && selectedReason.value === 'other') {
+                    const otherReason = document.getElementById('otherReason').value.trim();
+                    if (!otherReason) {
+                        isValid = false;
+                        document.getElementById('otherReason').style.borderColor = '#e74c3c';
+                        errorMessage.textContent = 'Please specify your reason for relocation.';
+                        errorMessage.style.display = 'block';
+                    }
+                }
+                
+                // Check preferred start date is in the future
+                const preferredDate = new Date(document.getElementById('preferredStartDate').value);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                if (preferredDate <= today) {
+                    isValid = false;
+                    document.getElementById('preferredStartDate').style.borderColor = '#e74c3c';
+                    errorMessage.textContent = 'Preferred start date must be in the future.';
+                    errorMessage.style.display = 'block';
+                }
+                
+                if (!isValid) {
+                    errorMessage.style.display = 'block';
+                }
+                
+                return isValid;
+            }
+            
+            // Set min date for preferred start date (tomorrow)
+            const preferredStartDate = document.getElementById('preferredStartDate');
+            if (preferredStartDate) {
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                preferredStartDate.min = tomorrow.toISOString().split('T')[0];
+            }
+            
+            // Search functionality for track status
+            const searchButton = document.getElementById('searchButton');
+            if (searchButton) {
+                searchButton.addEventListener('click', function() {
+                    const requestId = document.getElementById('searchRequestId').value;
+                    const email = document.getElementById('searchEmail').value;
+                    
+                    if (!requestId && !email) {
+                        alert('Please enter either a Request ID or Email address to search.');
+                        return;
+                    }
+                    
+                    // In a real app, this would be an API call
+                    alert(`Searching for request: ${requestId || email}\n\nIn a real application, this would display the request status.`);
+                });
+            }
+            
+            // Filter functionality for history
+            const filterButton = document.getElementById('filterButton');
+            if (filterButton) {
+                filterButton.addEventListener('click', function() {
+                    const status = document.getElementById('filterStatus').value;
+                    const year = document.getElementById('filterYear').value;
+                    const department = document.getElementById('filterDepartment').value;
+                    
+                    // In a real app, this would filter the table results
+                    alert(`Applying filters:\nStatus: ${status || 'All'}\nYear: ${year || 'All'}\nDepartment: ${department || 'All'}\n\nIn a real application, this would filter the table below.`);
+                });
+            }
+            
+            // Demo: Set current date for preferred start date (1 month from now)
+            if (preferredStartDate) {
+                const nextMonth = new Date();
+                nextMonth.setMonth(nextMonth.getMonth() + 1);
+                preferredStartDate.value = nextMonth.toISOString().split('T')[0];
+            }
+        });
+    </script>
+</body>
+</html>

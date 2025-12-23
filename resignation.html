@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Civil Servant - Resignation Request</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Additional styles for resignation page */
+        .resignation-page {
+            min-height: calc(100vh - 200px);
+            padding: 2rem 1rem;
+        }
+        
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .page-header p {
+            color: #7f8c8d;
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+        
+        .resignation-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .warning-banner {
+            background-color: #fef9e7;
+            border-left: 6px solid #f39c12;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .warning-banner i {
+            color: #f39c12;
+            font-size: 1.8rem;
+            margin-top: 0.2rem;
+        }
+        
+        .warning-banner h3 {
+            color: #b7950b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .warning-banner p {
+            color: #7d6608;
+            margin: 0;
+        }
+        
+        .resignation-section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+        
+        .section-header {
+            background-color: #2c3e50;
+            color: white;
+            padding: 1.5rem 2rem;
+        }
+        
+        .section-header h2 {
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section-content {
+            padding: 2rem;
+        }
+        
+        /* Resignation Form */
+        .resignation-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.8rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .form-group label .required {
+            color: #e74c3c;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        
+        .form-column {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 1em;
+            padding-right: 40px;
+        }
+        
+        .info-box {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid #3498db;
+        }
+        
+        .info-box h3 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .info-box h3 i {
+            color: #3498db;
+        }
+        
+        .radio-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+        
+        .radio-option input[type="radio"] {
+            margin: 0;
+        }
+        
+        .radio-option label {
+            margin: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        
+        .other-reason {
+            margin-top: 1.5rem;
+            display: none;
+        }
+        
+        .other-reason.show {
+            display: block;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .checkbox-option {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .checkbox-option input[type="checkbox"] {
+            margin-top: 4px;
+        }
+        
+        .checkbox-option label {
+            margin: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        
+        .document-checklist {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .checklist-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .checklist-icon {
+            color: #3498db;
+            font-size: 1.2rem;
+        }
+        
+        .checklist-text {
+            flex: 1;
+        }
+        
+        .checklist-status {
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .status-required {
+            background-color: #fde8e8;
+            color: #c53030;
+        }
+        
+        .status-optional {
+            background-color: #fef9e7;
+            color: #b7950b;
+        }
+        
+        .status-completed {
+            background-color: #e8f6f3;
+            color: #27ae60;
+        }
+        
+        .upload-area {
+            border: 2px dashed #3498db;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            margin: 1rem 0;
+            background-color: rgba(52, 152, 219, 0.05);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upload-area:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+        
+        .upload-area i {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 1rem;
+        }
+        
+        .upload-area p {
+            margin-bottom: 0.5rem;
+            color: #555;
+        }
+        
+        .upload-area .file-types {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+        }
+        
+        .preview-container {
+            margin-top: 1.5rem;
+            display: none;
+        }
+        
+        .preview-container.show {
+            display: block;
+        }
+        
+        .preview-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 0.8rem;
+            border: 1px solid #e9ecef;
+        }
+        
+        .preview-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .preview-icon {
+            color: #3498db;
+            font-size: 1.5rem;
+        }
+        
+        .file-details h4 {
+            margin-bottom: 0.2rem;
+            font-size: 1rem;
+        }
+        
+        .file-details p {
+            font-size: 0.85rem;
+            color: #7f8c8d;
+            margin: 0;
+        }
+        
+        .remove-file {
+            background: none;
+            border: none;
+            color: #e74c3c;
+            cursor: pointer;
+            font-size: 1.2rem;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .submit-btn:hover {
+            background-color: #c0392b;
+        }
+        
+        .submit-btn:disabled {
+            background-color: #95a5a6;
+            cursor: not-allowed;
+        }
+        
+        .cancel-btn {
+            width: 100%;
+            padding: 16px;
+            background-color: #f8f9fa;
+            color: #333;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .cancel-btn:hover {
+            background-color: #e9ecef;
+            border-color: #bbb;
+        }
+        
+        .alert {
+            padding: 12px 15px;
+            border-radius: 5px;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .alert-error {
+            background-color: #fde8e8;
+            color: #c53030;
+            border-left: 4px solid #c53030;
+        }
+        
+        .alert-success {
+            background-color: #e6fffa;
+            color: #234e52;
+            border-left: 4px solid #38b2ac;
+        }
+        
+        .alert-info {
+            background-color: #ebf8ff;
+            color: #2c5282;
+            border-left: 4px solid #3498db;
+        }
+        
+        .alert-warning {
+            background-color: #fef9e7;
+            color: #b7950b;
+            border-left: 4px solid #f39c12;
+        }
+        
+        /* Resignation Checklist */
+        .checklist-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .checklist-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        
+        .checklist-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #3498db;
+        }
+        
+        .checklist-card h4 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .checklist-card h4 i {
+            color: #3498db;
+        }
+        
+        .checklist-card ul {
+            padding-left: 1.5rem;
+            margin: 0;
+        }
+        
+        .checklist-card li {
+            margin-bottom: 0.8rem;
+            color: #555;
+        }
+        
+        .checklist-card li:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Exit Interview Section */
+        .interview-section {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .interview-question {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .interview-question:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+        
+        .interview-question label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        /* Resignation Status */
+        .status-tracker {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .status-tracker h3 {
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        .status-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+        
+        .status-steps::before {
+            content: '';
+            position: absolute;
+            top: 25px;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: #e9ecef;
+            z-index: 1;
+        }
+        
+        .status-step {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        
+        .status-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #e9ecef;
+            color: #7f8c8d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .status-step.active .status-icon {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .status-step.completed .status-icon {
+            background-color: #2ecc71;
+            color: white;
+        }
+        
+        .status-label {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            font-weight: 600;
+        }
+        
+        .status-step.active .status-label {
+            color: #3498db;
+        }
+        
+        .status-step.completed .status-label {
+            color: #2ecc71;
+        }
+        
+        .request-details {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .request-details h3 {
+            margin-bottom: 1.5rem;
+            color: #2c3e50;
+            padding-bottom: 0.8rem;
+            border-bottom: 2px solid #f8f9fa;
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #f8f9fa;
+        }
+        
+        .detail-label {
+            font-weight: 600;
+            color: #2c3e50;
+            width: 200px;
+            flex-shrink: 0;
+        }
+        
+        .detail-value {
+            color: #555;
+            flex: 1;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .action-btn {
+            padding: 10px 25px;
+            border-radius: 5px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .action-btn.download {
+            background-color: #2c3e50;
+            color: white;
+        }
+        
+        .action-btn.download:hover {
+            background-color: #1a252f;
+        }
+        
+        .action-btn.withdraw {
+            background-color: #3498db;
+            color: white;
+        }
+        
+        .action-btn.withdraw:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Resignation History */
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1.5rem;
+        }
+        
+        .history-table th,
+        .history-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .history-table th {
+            background-color: #f8f9fa;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .history-table tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background-color: #fef9e7;
+            color: #b7950b;
+        }
+        
+        .status-approved {
+            background-color: #e8f6f3;
+            color: #27ae60;
+        }
+        
+        .status-rejected {
+            background-color: #fdedec;
+            color: #c0392b;
+        }
+        
+        .status-processing {
+            background-color: #ebf5fb;
+            color: #3498db;
+        }
+        
+        .status-withdrawn {
+            background-color: #f8f9fa;
+            color: #7f8c8d;
+        }
+        
+        .status-completed {
+            background-color: #e8f6f3;
+            color: #27ae60;
+        }
+        
+        /* Empty States */
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #7f8c8d;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            color: #bdc3c7;
+        }
+        
+        @media (max-width: 768px) {
+            .status-steps {
+                flex-wrap: wrap;
+                gap: 1.5rem;
+            }
+            
+            .status-step {
+                flex: 0 0 calc(50% - 0.75rem);
+            }
+            
+            .detail-row {
+                flex-direction: column;
+            }
+            
+            .detail-label {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+            
+            .checklist-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-landmark"></i>
+                <span>Civil Servant</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="relocation.html">Relocation</a></li>
+                <li><a href="swap.html">Swap</a></li>
+                <li><a href="resignation.html" class="active">Resignation</a></li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="resignation-page">
+        <div class="page-header">
+            <h1><i class="fas fa-file-signature"></i> Resignation Request</h1>
+            <p>Submit your resignation with proper documentation and track the approval process. Access resources for a smooth transition.</p>
+        </div>
+        
+        <div class="resignation-container">
+            <!-- Warning Banner -->
+            <div class="warning-banner">
+                <i class="fas fa-exclamation-triangle"></i>
+                <div>
+                    <h3>Important Notice</h3>
+                    <p>Submitting a resignation is a significant decision. Please review your contract terms, notice period requirements, and consider speaking with HR before proceeding. Once submitted, this request will initiate official resignation procedures.</p>
+                </div>
+            </div>
+            
+            <!-- Section 1: Submit Resignation -->
+            <div class="resignation-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-edit"></i> Submit Resignation Request</h2>
+                </div>
+                <div class="section-content">
+                    <div class="resignation-form">
+                        <div id="error-message" class="alert alert-error" style="display: none;">
+                            Please fill in all required fields correctly and upload required documents.
+                        </div>
+                        
+                        <div id="success-message" class="alert alert-success" style="display: none;">
+                            Your resignation request has been submitted successfully! Request ID: <strong id="requestId">#RES-2023-045</strong>
+                        </div>
+                        
+                        <div id="warning-message" class="alert alert-warning">
+                            <i class="fas fa-info-circle"></i> Please ensure you have completed all required documents before submission.
+                        </div>
+                        
+                        <form id="resignation-form">
+                            <!-- Employee Information -->
+                            <div class="info-box">
+                                <h3><i class="fas fa-user"></i> Employee Information</h3>
+                                <div class="form-row">
+                                    <div class="form-column">
+                                        <div class="form-group">
+                                            <label for="employeeName">Full Name <span class="required">*</span></label>
+                                            <input type="text" id="employeeName" class="form-control" placeholder="Enter your full name" value="Victor Muhakeya" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-column">
+                                        <div class="form-group">
+                                            <label for="employeeId">Employee ID <span class="required">*</span></label>
+                                            <input type="text" id="employeeId" class="form-control" placeholder="Enter your employee ID" value="CS-2020-0456" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-column">
+                                        <div class="form-group">
+                                            <label for="department">Department <span class="required">*</span></label>
+                                            <select id="department" class="form-control" required>
+                                                <option value="">Select Department</option>
+                                                <option value="education" selected>Education</option>
+                                                <option value="health">Health</option>
+                                                <option value="finance">Finance</option>
+                                                <option value="transport">Transport</option>
+                                                <option value="justice">Justice</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-column">
+                                        <div class="form-group">
+                                            <label for="position">Position <span class="required">*</span></label>
+                                            <input type="text" id="position" class="form-control" placeholder="Enter your position" value="Senior Education Officer" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-column">
+                                        <div class="form-group">
+                                            <label for="dateOfJoining">Date of Joining <span class="required">*</span></label>
+                                            <input type="date" id="dateOfJoining" class="form-control" value="2020-03-15" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-column">
+                                        <div class="form-group">
+                                            <label for="lastWorkingDay">Proposed Last Working Day <span class="required">*</span></label>
+                                            <input type="date" id="lastWorkingDay" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Resignation Details -->
+                            <div class="info-box">
+                                <h3><i class="fas fa-file-alt"></i> Resignation Details</h3>
+                                
+                                <div class="form-group">
+                                    <label>Reason for Resignation <span class="required">*</span></label>
+                                    <div class="radio-group">
+                                        <div class="radio-option">
+                                            <input type="radio" id="reasonCareer" name="resignationReason" value="career" checked>
+                                            <label for="reasonCareer">Career advancement elsewhere</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="reasonPersonal" name="resignationReason" value="personal">
+                                            <label for="reasonPersonal">Personal reasons</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="reasonHealth" name="resignationReason" value="health">
+                                            <label for="reasonHealth">Health reasons</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="reasonRelocation" name="resignationReason" value="relocation">
+                                            <label for="reasonRelocation">Relocation</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="reasonRetirement" name="resignationReason" value="retirement">
+                                            <label for="reasonRetirement">Retirement</label>
+                                        </div>
+                                        <div class="radio-option">
+                                            <input type="radio" id="reasonOther" name="resignationReason" value="other">
+                                            <label for="reasonOther">Other</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="other-reason" id="otherReasonContainer">
+                                        <div class="form-group">
+                                            <label for="otherReason">Please specify <span class="required">*</span></label>
+                                            <textarea id="otherReason" class="form-control" placeholder="Please specify your reason for resignation"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="resignationLetter">Resignation Letter <span class="required">*</span></label>
+                                    <textarea id="resignationLetter" class="form-control" placeholder="Please write your formal resignation letter here..." required>Dear [Supervisor's Name],
+
+Please accept this letter as formal notification of my resignation from my position as Senior Education Officer with the Department of Education. My last day of employment will be [Last Working Day].
+
+I want to express my sincere gratitude for the opportunities for professional and personal development that you have provided me during my tenure. I have enjoyed working for the department and appreciate the support provided me during my time with the organization.
+
+Thank you for the support and guidance you have provided me during my time at the Department of Education. I wish the department continued success in the future.
+
+Sincerely,
+[Your Name]</textarea>
+                                    <div class="form-requirements" style="font-size: 0.9rem; color: #7f8c8d; margin-top: 0.5rem;">
+                                        Your resignation letter should be formal, polite, and include your last working date.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Exit Interview Questions -->
+                            <div class="interview-section">
+                                <h3 style="margin-bottom: 1.5rem; color: #2c3e50; display: flex; align-items: center; gap: 10px;">
+                                    <i class="fas fa-comments"></i> Exit Interview Questions (Optional)
+                                </h3>
+                                
+                                <div class="interview-question">
+                                    <label for="exitFeedback">What did you like most about working here?</label>
+                                    <textarea id="exitFeedback" class="form-control" placeholder="Your feedback helps us improve the workplace for current and future employees..."></textarea>
+                                </div>
+                                
+                                <div class="interview-question">
+                                    <label for="exitImprovements">What could we have done to make your experience better?</label>
+                                    <textarea id="exitImprovements" class="form-control" placeholder="Your suggestions for improvement..."></textarea>
+                                </div>
+                                
+                                <div class="interview-question">
+                                    <label for="exitRecommend">Would you recommend working here to others? Why or why not?</label>
+                                    <textarea id="exitRecommend" class="form-control" placeholder="Your honest feedback..."></textarea>
+                                </div>
+                            </div>
+                            
+                            <!-- Required Documents -->
+                            <div class="document-checklist">
+                                <h3 style="margin-bottom: 1.5rem; color: #2c3e50; display: flex; align-items: center; gap: 10px;">
+                                    <i class="fas fa-clipboard-check"></i> Required Documents
+                                </h3>
+                                
+                                <div class="checklist-item">
+                                    <i class="fas fa-file-pdf checklist-icon"></i>
+                                    <div class="checklist-text">
+                                        <strong>Signed Resignation Letter</strong>
+                                        <p>Formal resignation letter signed by you</p>
+                                    </div>
+                                    <span class="checklist-status status-required">Required</span>
+                                </div>
+                                
+                                <div class="checklist-item">
+                                    <i class="fas fa-file-contract checklist-icon"></i>
+                                    <div class="checklist-text">
+                                        <strong>Clearance Form</strong>
+                                        <p>Departmental clearance certification</p>
+                                    </div>
+                                    <span class="checklist-status status-required">Required</span>
+                                </div>
+                                
+                                <div class="checklist-item">
+                                    <i class="fas fa-id-card checklist-icon"></i>
+                                    <div class="checklist-text">
+                                        <strong>Employee ID Card</strong>
+                                        <p>Return of government-issued ID card</p>
+                                    </div>
+                                    <span class="checklist-status status-required">Required</span>
+                                </div>
+                                
+                                <div class="checklist-item">
+                                    <i class="fas fa-file-invoice-dollar checklist-icon"></i>
+                                    <div class="checklist-text">
+                                        <strong>Final Settlement Form</strong>
+                                        <p>Financial clearance and final settlement</p>
+                                    </div>
+                                    <span class="checklist-status status-optional">Optional</span>
+                                </div>
+                                
+                                <div class="upload-area" id="uploadArea">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                    <p><strong>Click to upload required documents</strong> or drag and drop</p>
+                                    <p class="file-types">PDF, DOC, DOCX, JPG, PNG up to 10MB each</p>
+                                </div>
+                                
+                                <input type="file" id="documentUpload" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple style="display: none;">
+                                
+                                <div class="preview-container" id="previewContainer">
+                                    <!-- Files will be dynamically added here -->
+                                </div>
+                            </div>
+                            
+                            <!-- Final Confirmation -->
+                            <div class="form-group">
+                                <div class="checkbox-group">
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="acknowledgeNotice" required>
+                                        <label for="acknowledgeNotice">
+                                            I acknowledge that I am required to serve my full notice period as per my employment contract.
+                                            <span class="required">*</span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="clearanceComplete" required>
+                                        <label for="clearanceComplete">
+                                            I understand that I must complete all departmental clearance procedures before my last working day.
+                                            <span class="required">*</span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="returnAssets" required>
+                                        <label for="returnAssets">
+                                            I agree to return all government property (ID card, laptop, etc.) before my last working day.
+                                            <span class="required">*</span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="checkbox-option">
+                                        <input type="checkbox" id="finalSettlement" required>
+                                        <label for="finalSettlement">
+                                            I acknowledge that my final settlement will be processed after all clearance procedures are complete.
+                                            <span class="required">*</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="submit-btn" id="submitButton">
+                                <i class="fas fa-paper-plane"></i>
+                                <span id="buttonText">Submit Resignation Request</span>
+                                <span id="buttonSpinner" style="display: none;">
+                                    <i class="fas fa-spinner fa-spin"></i> Submitting...
+                                </span>
+                            </button>
+                            
+                            <button type="button" class="cancel-btn" id="cancelButton">
+                                <i class="fas fa-times"></i> Cancel
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section 2: Resignation Checklist & Resources -->
+            <div class="resignation-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-clipboard-list"></i> Resignation Checklist & Resources</h2>
+                </div>
+                <div class="section-content">
+                    <div class="checklist-container">
+                        <div class="checklist-card">
+                            <h4><i class="fas fa-tasks"></i> Pre-Resignation Checklist</h4>
+                            <ul>
+                                <li>Review your employment contract terms</li>
+                                <li>Check notice period requirements</li>
+                                <li>Prepare formal resignation letter</li>
+                                <li>Schedule a meeting with your supervisor</li>
+                                <li>Back up personal files (if applicable)</li>
+                                <li>Consider timing of your announcement</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="checklist-card">
+                            <h4><i class="fas fa-calendar-check"></i> During Notice Period</h4>
+                            <ul>
+                                <li>Complete handover documentation</li>
+                                <li>Train your replacement (if applicable)</li>
+                                <li>Submit departmental clearance forms</li>
+                                <li>Return all government property</li>
+                                <li>Attend exit interview (if scheduled)</li>
+                                <li>Update contact information with HR</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="checklist-card">
+                            <h4><i class="fas fa-file-contract"></i> Required Documents</h4>
+                            <ul>
+                                <li>Signed resignation letter (original)</li>
+                                <li>Departmental clearance certificate</li>
+                                <li>Final settlement form</li>
+                                <li>Asset return acknowledgment</li>
+                                <li>Exit interview form (if applicable)</li>
+                                <li>Experience/service certificate request</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="checklist-card">
+                            <h4><i class="fas fa-life-ring"></i> Support Resources</h4>
+                            <ul>
+                                <li>HR Contact: hr@civilservant.gov</li>
+                                <li>Employee Assistance Program</li>
+                                <li>Career transition services</li>
+                                <li>Pension/retirement counseling</li>
+                                <li>Benefits continuation information</li>
+                                <li>Alumni network information</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons" style="justify-content: center; margin-top: 2rem;">
+                        <button class="action-btn download">
+                            <i class="fas fa-download"></i> Download Complete Checklist
+                        </button>
+                        <button class="action-btn download" style="background-color: #3498db;">
+                            <i class="fas fa-file-download"></i> Resignation Templates
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section 3: Track Resignation Status -->
+            <div class="resignation-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-chart-line"></i> Track Resignation Status</h2>
+                </div>
+                <div class="section-content">
+                    <div style="padding: 1rem;">
+                        <h3 style="margin-bottom: 1.5rem; color: #2c3e50;">Current Resignation Status</h3>
+                        
+                        <!-- Demo Status Tracker -->
+                        <div class="status-tracker">
+                            <h3>Request Status: <span class="status-badge status-processing">Under Review</span></h3>
+                            <p style="text-align: center; margin-bottom: 1.5rem; color: #555;">Request ID: <strong>#RES-2023-042</strong> | Submitted: October 10, 2023</p>
+                            
+                            <div class="status-steps">
+                                <div class="status-step completed">
+                                    <div class="status-icon">
+                                        <i class="fas fa-file-upload"></i>
+                                    </div>
+                                    <div class="status-label">Submitted</div>
+                                </div>
+                                <div class="status-step active">
+                                    <div class="status-icon">
+                                        <i class="fas fa-user-tie"></i>
+                                    </div>
+                                    <div class="status-label">Supervisor Review</div>
+                                </div>
+                                <div class="status-step">
+                                    <div class="status-icon">
+                                        <i class="fas fa-clipboard-check"></i>
+                                    </div>
+                                    <div class="status-label">Department Approval</div>
+                                </div>
+                                <div class="status-step">
+                                    <div class="status-icon">
+                                        <i class="fas fa-building"></i>
+                                    </div>
+                                    <div class="status-label">HR Processing</div>
+                                </div>
+                                <div class="status-step">
+                                    <div class="status-icon">
+                                        <i class="fas fa-check-double"></i>
+                                    </div>
+                                    <div class="status-label">Finalized</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="request-details">
+                            <h3>Request Details</h3>
+                            <div class="detail-row">
+                                <div class="detail-label">Employee Name:</div>
+                                <div class="detail-value">John Doe</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Employee ID:</div>
+                                <div class="detail-value">CS-2020-0456</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Department:</div>
+                                <div class="detail-value">Education</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Position:</div>
+                                <div class="detail-value">Senior Education Officer</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Last Working Day:</div>
+                                <div class="detail-value">December 15, 2023</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Notice Period:</div>
+                                <div class="detail-value">60 days</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Reason for Resignation:</div>
+                                <div class="detail-value">Career advancement elsewhere</div>
+                            </div>
+                            <div class="detail-row">
+                                <div class="detail-label">Estimated Completion:</div>
+                                <div class="detail-value">November 30, 2023</div>
+                            </div>
+                            
+                            <div class="action-buttons">
+                                <button class="action-btn download">
+                                    <i class="fas fa-download"></i> Download Request Copy
+                                </button>
+                                <button class="action-btn withdraw">
+                                    <i class="fas fa-undo"></i> Withdraw Request
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section 4: Resignation History -->
+            <div class="resignation-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-history"></i> Resignation History</h2>
+                </div>
+                <div class="section-content">
+                    <div style="padding: 1rem;">
+                        <h3 style="margin-bottom: 1.5rem; color: #2c3e50;">Previous Resignation Requests</h3>
+                        
+                        <div class="request-details">
+                            <table class="history-table">
+                                <thead>
+                                    <tr>
+                                        <th>Request ID</th>
+                                        <th>Submission Date</th>
+                                        <th>Last Working Day</th>
+                                        <th>Status</th>
+                                        <th>Completion Date</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>#RES-2023-042</td>
+                                        <td>Oct 10, 2023</td>
+                                        <td>Dec 15, 2023</td>
+                                        <td><span class="status-badge status-processing">Processing</span></td>
+                                        <td>-</td>
+                                        <td>
+                                            <button class="table-btn view" style="padding: 5px 10px; font-size: 0.85rem;">
+                                                <i class="fas fa-eye"></i> View
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#RES-2021-018</td>
+                                        <td>Mar 15, 2021</td>
+                                        <td>Jun 15, 2021</td>
+                                        <td><span class="status-badge status-withdrawn">Withdrawn</span></td>
+                                        <td>Apr 5, 2021</td>
+                                        <td>
+                                            <button class="table-btn view" style="padding: 5px 10px; font-size: 0.85rem;">
+                                                <i class="fas fa-eye"></i> View
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>#RES-2019-105</td>
+                                        <td>Aug 20, 2019</td>
+                                        <td>Oct 20, 2019</td>
+                                        <td><span class="status-badge status-completed">Completed</span></td>
+                                        <td>Oct 25, 2019</td>
+                                        <td>
+                                            <button class="table-btn view" style="padding: 5px 10px; font-size: 0.85rem;">
+                                                <i class="fas fa-eye"></i> View
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-landmark"></i>
+                <span>Civil Servant</span>
+            </div>
+            <p>Streamlining administrative processes for government employees since 2023</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <p class="copyright">&copy; <span class="current-year">2023</span> Civil Servant Portal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Resignation page specific JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // DOM Elements
+            const resignationForm = document.getElementById('resignation-form');
+            const submitButton = document.getElementById('submitButton');
+            const cancelButton = document.getElementById('cancelButton');
+            const buttonText = document.getElementById('buttonText');
+            const buttonSpinner = document.getElementById('buttonSpinner');
+            const errorMessage = document.getElementById('error-message');
+            const successMessage = document.getElementById('success-message');
+            const requestIdElement = document.getElementById('requestId');
+            const lastWorkingDay = document.getElementById('lastWorkingDay');
+            const dateOfJoining = document.getElementById('dateOfJoining');
+            
+            // Other reason toggle
+            const reasonRadios = document.querySelectorAll('input[name="resignationReason"]');
+            const otherReasonContainer = document.getElementById('otherReasonContainer');
+            
+            // File upload
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('documentUpload');
+            const previewContainer = document.getElementById('previewContainer');
+            
+            let uploadedFiles = [];
+            
+            // Initialize
+            setupEventListeners();
+            
+            function setupEventListeners() {
+                // Other reason textarea toggle
+                reasonRadios.forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        if (this.value === 'other') {
+                            otherReasonContainer.classList.add('show');
+                            document.getElementById('otherReason').required = true;
+                        } else {
+                            otherReasonContainer.classList.remove('show');
+                            document.getElementById('otherReason').required = false;
+                        }
+                    });
+                });
+                
+                // File upload functionality
+                if (uploadArea && fileInput) {
+                    uploadArea.addEventListener('click', function() {
+                        fileInput.click();
+                    });
+                    
+                    uploadArea.addEventListener('dragover', function(e) {
+                        e.preventDefault();
+                        this.style.backgroundColor = 'rgba(52, 152, 219, 0.2)';
+                    });
+                    
+                    uploadArea.addEventListener('dragleave', function() {
+                        this.style.backgroundColor = 'rgba(52, 152, 219, 0.05)';
+                    });
+                    
+                    uploadArea.addEventListener('drop', function(e) {
+                        e.preventDefault();
+                        this.style.backgroundColor = 'rgba(52, 152, 219, 0.05)';
+                        
+                        if (e.dataTransfer.files.length) {
+                            handleFileUpload(e.dataTransfer.files);
+                        }
+                    });
+                    
+                    fileInput.addEventListener('change', function() {
+                        if (this.files.length) {
+                            handleFileUpload(this.files);
+                        }
+                    });
+                }
+                
+                // Set date constraints
+                if (lastWorkingDay) {
+                    // Minimum date is today + 30 days (typical notice period)
+                    const minDate = new Date();
+                    minDate.setDate(minDate.getDate() + 30);
+                    lastWorkingDay.min = minDate.toISOString().split('T')[0];
+                    
+                    // Set default to 60 days from now (typical notice period)
+                    const defaultDate = new Date();
+                    defaultDate.setDate(defaultDate.getDate() + 60);
+                    lastWorkingDay.value = defaultDate.toISOString().split('T')[0];
+                }
+                
+                if (dateOfJoining) {
+                    // Maximum date is today
+                    const today = new Date().toISOString().split('T')[0];
+                    dateOfJoining.max = today;
+                }
+                
+                // Form submission
+                if (resignationForm) {
+                    resignationForm.addEventListener('submit', function(event) {
+                        event.preventDefault();
+                        
+                        if (validateResignationForm()) {
+                            // Show confirmation dialog
+                            if (!confirm('Are you sure you want to submit your resignation? This action cannot be undone.')) {
+                                return;
+                            }
+                            
+                            // Show loading state
+                            buttonText.style.display = 'none';
+                            buttonSpinner.style.display = 'inline';
+                            submitButton.disabled = true;
+                            cancelButton.disabled = true;
+                            
+                            // Hide any previous messages
+                            errorMessage.style.display = 'none';
+                            successMessage.style.display = 'none';
+                            
+                            // Generate a request ID
+                            const requestId = 'RES-' + new Date().getFullYear() + '-' + 
+                                             String(Math.floor(Math.random() * 1000)).padStart(3, '0');
+                            
+                            // Simulate API call delay
+                            setTimeout(function() {
+                                // Successful submission
+                                requestIdElement.textContent = `#${requestId}`;
+                                successMessage.style.display = 'block';
+                                errorMessage.style.display = 'none';
+                                
+                                // Store request data in localStorage (for demo purposes)
+                                const formData = {
+                                    requestId: requestId,
+                                    employeeName: document.getElementById('employeeName').value,
+                                    employeeId: document.getElementById('employeeId').value,
+                                    lastWorkingDay: document.getElementById('lastWorkingDay').value,
+                                    reason: document.querySelector('input[name="resignationReason"]:checked').value,
+                                    submissionDate: new Date().toLocaleDateString(),
+                                    status: 'pending'
+                                };
+                                
+                                // Get existing requests or create new array
+                                const existingRequests = JSON.parse(localStorage.getItem('resignationRequests') || '[]');
+                                existingRequests.push(formData);
+                                localStorage.setItem('resignationRequests', JSON.stringify(existingRequests));
+                                
+                                // Show success message for longer
+                                setTimeout(function() {
+                                    // Reset button state
+                                    buttonText.style.display = 'inline';
+                                    buttonSpinner.style.display = 'none';
+                                    submitButton.disabled = false;
+                                    cancelButton.disabled = false;
+                                    
+                                    // Don't reset form for resignation (important decision)
+                                    // Just hide success message
+                                    successMessage.style.display = 'none';
+                                    
+                                    // Scroll to status section
+                                    document.querySelector('.resignation-section:nth-child(4)').scrollIntoView({
+                                        behavior: 'smooth'
+                                    });
+                                }, 5000);
+                            }, 3000); // Simulate network delay
+                        }
+                    });
+                }
+                
+                // Cancel button
+                if (cancelButton) {
+                    cancelButton.addEventListener('click', function() {
+                        if (confirm('Are you sure you want to cancel? All unsaved changes will be lost.')) {
+                            resignationForm.reset();
+                            uploadedFiles = [];
+                            previewContainer.classList.remove('show');
+                            previewContainer.innerHTML = '';
+                            
+                            // Reset dates to defaults
+                            if (lastWorkingDay) {
+                                const defaultDate = new Date();
+                                defaultDate.setDate(defaultDate.getDate() + 60);
+                                lastWorkingDay.value = defaultDate.toISOString().split('T')[0];
+                            }
+                        }
+                    });
+                }
+                
+                // Demo button actions
+                document.querySelectorAll('.action-btn.download').forEach(btn => {
+                    if (btn.textContent.includes('Checklist')) {
+                        btn.addEventListener('click', function() {
+                            alert('Downloading resignation checklist PDF...\n\nIn a real application, this would download the checklist.');
+                        });
+                    } else if (btn.textContent.includes('Templates')) {
+                        btn.addEventListener('click', function() {
+                            alert('Downloading resignation letter templates...\n\nIn a real application, this would download template files.');
+                        });
+                    } else {
+                        btn.addEventListener('click', function() {
+                            alert('Downloading request copy...\n\nIn a real application, this would download a PDF copy of your resignation request.');
+                        });
+                    }
+                });
+                
+                document.querySelectorAll('.action-btn.withdraw').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        if (confirm('Are you sure you want to withdraw your resignation request? This action requires approval from your supervisor.')) {
+                            alert('Resignation withdrawal request submitted.\n\nIn a real application, this would initiate the withdrawal process.');
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('.table-btn.view').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const row = this.closest('tr');
+                        const requestId = row.cells[0].textContent;
+                        alert(`Viewing resignation request ${requestId}\n\nIn a real application, this would open detailed view.`);
+                    });
+                });
+            }
+            
+            function handleFileUpload(files) {
+                const maxSize = 10 * 1024 * 1024; // 10MB
+                const validTypes = ['application/pdf', 'application/msword', 
+                                  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                                  'image/jpeg', 'image/jpg', 'image/png'];
+                
+                for (let i = 0; i < files.length; i++) {
+                    const file = files[i];
+                    
+                    // Validate file
+                    if (!validTypes.includes(file.type)) {
+                        alert(`File "${file.name}" is not a supported file type.`);
+                        continue;
+                    }
+                    
+                    if (file.size > maxSize) {
+                        alert(`File "${file.name}" exceeds the 10MB size limit.`);
+                        continue;
+                    }
+                    
+                    // Add to uploaded files array
+                    uploadedFiles.push(file);
+                    
+                    // Create preview item
+                    const previewItem = document.createElement('div');
+                    previewItem.className = 'preview-item';
+                    previewItem.dataset.fileName = file.name;
+                    
+                    const fileIcon = file.type.includes('image') ? 'fa-file-image' : 
+                                   file.type.includes('pdf') ? 'fa-file-pdf' : 'fa-file-word';
+                    
+                    previewItem.innerHTML = `
+                        <div class="preview-info">
+                            <i class="fas ${fileIcon} preview-icon"></i>
+                            <div class="file-details">
+                                <h4>${file.name}</h4>
+                                <p>${formatFileSize(file.size)}</p>
+                            </div>
+                        </div>
+                        <button type="button" class="remove-file" onclick="removeUploadedFile('${file.name}')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    `;
+                    
+                    previewContainer.appendChild(previewItem);
+                }
+                
+                // Show preview container if there are files
+                if (uploadedFiles.length > 0) {
+                    previewContainer.classList.add('show');
+                }
+            }
+            
+            // Make removeUploadedFile function available globally
+            window.removeUploadedFile = function(fileName) {
+                // Remove from array
+                uploadedFiles = uploadedFiles.filter(file => file.name !== fileName);
+                
+                // Remove from DOM
+                const previewItem = document.querySelector(`.preview-item[data-file-name="${fileName}"]`);
+                if (previewItem) {
+                    previewItem.remove();
+                }
+                
+                // Hide preview container if no files left
+                if (uploadedFiles.length === 0) {
+                    previewContainer.classList.remove('show');
+                }
+            };
+            
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+            
+            function validateResignationForm() {
+                let isValid = true;
+                const requiredFields = resignationForm.querySelectorAll('[required]');
+                
+                // Hide error message
+                errorMessage.style.display = 'none';
+                
+                // Check required fields
+                requiredFields.forEach(field => {
+                    if (field.type === 'checkbox') {
+                        if (!field.checked) {
+                            isValid = false;
+                            field.parentElement.style.color = '#e74c3c';
+                        } else {
+                            field.parentElement.style.color = '';
+                        }
+                    } else if (!field.value.trim()) {
+                        isValid = false;
+                        field.style.borderColor = '#e74c3c';
+                    } else {
+                        field.style.borderColor = '#ddd';
+                    }
+                });
+                
+                // Check if at least one reason is selected
+                const selectedReason = document.querySelector('input[name="resignationReason"]:checked');
+                if (!selectedReason) {
+                    isValid = false;
+                    errorMessage.textContent = 'Please select a reason for resignation.';
+                    errorMessage.style.display = 'block';
+                }
+                
+                // Check if other reason is specified when selected
+                if (selectedReason && selectedReason.value === 'other') {
+                    const otherReason = document.getElementById('otherReason').value.trim();
+                    if (!otherReason) {
+                        isValid = false;
+                        document.getElementById('otherReason').style.borderColor = '#e74c3c';
+                        errorMessage.textContent = 'Please specify your reason for resignation.';
+                        errorMessage.style.display = 'block';
+                    }
+                }
+                
+                // Check last working day is at least 30 days in future (typical notice period)
+                const lastDay = new Date(lastWorkingDay.value);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                const minLastDay = new Date();
+                minLastDay.setDate(minLastDay.getDate() + 30);
+                minLastDay.setHours(0, 0, 0, 0);
+                
+                if (lastDay < minLastDay) {
+                    isValid = false;
+                    lastWorkingDay.style.borderColor = '#e74c3c';
+                    errorMessage.textContent = 'Last working day must be at least 30 days from today (standard notice period).';
+                    errorMessage.style.display = 'block';
+                }
+                
+                // Check date of joining is not in future
+                const joiningDate = new Date(dateOfJoining.value);
+                if (joiningDate > today) {
+                    isValid = false;
+                    dateOfJoining.style.borderColor = '#e74c3c';
+                    errorMessage.textContent = 'Date of joining cannot be in the future.';
+                    errorMessage.style.display = 'block';
+                }
+                
+                // Check if required documents are uploaded (at least 3 for demo)
+                if (uploadedFiles.length < 3) {
+                    isValid = false;
+                    errorMessage.textContent = 'Please upload at least the 3 required documents (resignation letter, clearance form, ID card).';
+                    errorMessage.style.display = 'block';
+                }
+                
+                if (!isValid) {
+                    errorMessage.style.display = 'block';
+                    if (!errorMessage.textContent) {
+                        errorMessage.textContent = 'Please fill in all required fields correctly and upload required documents.';
+                    }
+                }
+                
+                return isValid;
+            }
+        });
+    </script>
+</body>
+</html>
