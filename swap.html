@@ -373,6 +373,7 @@
         /* My Swap Requests */
         .swap-requests {
             margin-top: 2rem;
+            
         }
         
         .requests-table {
@@ -691,12 +692,17 @@
                             <label for="filterLocation">Location</label>
                             <select id="filterLocation" class="filter-select">
                                 <option value="">All Locations</option>
-                                <option value="capital">Capital City</option>
-                                <option value="coastal">Coastal City</option>
                                 <option value="northern">Northern Region</option>
                                 <option value="southern">Southern Region</option>
                                 <option value="eastern">Eastern Region</option>
                                 <option value="western">Western Region</option>
+                                <option value="capital">Lilongwe City</option>
+                                <option value="coastal">Blantyre City</option>
+                                <option value="coastal">Zomba</option>
+                                <option value="coastal">Mzuzu</option>
+                                <option value="coastal">Karonga</option>
+                                <option value="coastal">Mulanje</option>
+                                
                             </select>
                         </div>
                         
@@ -739,7 +745,7 @@
             <!-- Section 2: Submit Swap Request -->
             <div class="swap-section">
                 <div class="section-header">
-                    <h2><i class="fas fa-paper-plane"></i> Submit Swap Request</h2>
+                    <h2><i class="fas fa-paper-plane"></i> Make Swap Request</h2>
                 </div>
                 <div class="section-content">
                     <div class="swap-form">
@@ -800,16 +806,26 @@
                             </div>
                             
                             <div class="info-box">
-                                <h3><i class="fas fa-user-friends"></i> Swap Partner Details</h3>
+                                <h3><i class="fas fa-user-friends"></i>Destination (Where you want to go?)</h3>
                                 <div class="form-group">
                                     <!--<label for="swapPartner">Select Swap Partner <span class="required">*</span></label> -->
 
                                     <select id="swapPartner" class="form-control" required>
-                                        <option value="">Select a swap partner</option>
-                                        <option value="john-doe">John Doe (Health Dept, Coastal City)</option>
-                                        <option value="jane-smith">Jane Smith (Finance Dept, Northern Region)</option>
-                                        <option value="robert-brown">Robert Brown (Transport Dept, Southern Region)</option>
-                                        <option value="sarah-wilson">Sarah Wilson (Education Dept, Western Region)</option>
+                                        <option value="">Select District</option>
+                                        <option value="john-doe">Zomba</option>
+                                        <option value="northern">Northern Region</option>
+                                        <option value="southern">Southern Region</option>
+                                        <option value="eastern">Eastern Region</option>
+                                        <option value="western">Western Region</option>
+                                        <option value="capital">Lilongwe City</option>
+                                        <option value="coastal">Blantyre City</option>
+                                        <option value="zomba">Zomba</option>
+                                        <option value="mzuzu">Mzuzu</option>
+                                        <option value="karonga">Karonga</option>
+                                        <option value="mulanje">Mulanje</option>
+                                        <option value="nsanje">Nsanje</option>
+                                        <option value="salima">Salima</option>
+                                        <option value="dedza">Dedza</option>
                                     </select>
                                 </div>
                                 
@@ -854,6 +870,7 @@
             </div>
             
             <!-- Section 3: My Swap Requests & Proposals -->
+            
             <div class="swap-section">
                 <div class="section-header">
                     <h2><i class="fas fa-tasks"></i> My Swap Requests & Proposals</h2>
@@ -861,6 +878,7 @@
                 <div class="section-content">
                     <!-- My Swap Requests -->
                     <div class="swap-requests">
+                        <!--
                         <h3 style="margin-bottom: 1rem; color: #2c3e50;">My Active Swap Requests</h3>
                         
                         <table class="requests-table">
@@ -877,9 +895,9 @@
                             <tbody>
                                 <tr>
                                     <td>#SWAP-2023-012</td>
-                                    <td>John Doe</td>
+                                    <td>John Mateyu</td>
                                     <td>Health</td>
-                                    <td>Coastal City</td>
+                                    <td>Lilongwe City</td>
                                     <td><span class="swap-status status-negotiating">Negotiating</span></td>
                                     <td class="action-cell">
                                         <button class="table-btn view">
@@ -895,7 +913,7 @@
                                 </tr>
                                 <tr>
                                     <td>#SWAP-2023-008</td>
-                                    <td>Jane Smith</td>
+                                    <td>Sharon Muhakeya</td>
                                     <td>Finance</td>
                                     <td>Northern Region</td>
                                     <td><span class="swap-status status-waiting">Waiting Response</span></td>
@@ -910,7 +928,7 @@
                                 </tr>
                                 <tr>
                                     <td>#SWAP-2023-005</td>
-                                    <td>Robert Brown</td>
+                                    <td>Andrew Mzuzu</td>
                                     <td>Transport</td>
                                     <td>Southern Region</td>
                                     <td><span class="swap-status status-pending">Pending Approval</span></td>
@@ -923,6 +941,7 @@
                             </tbody>
                         </table>
                     </div>
+                 -->
                     
                     <!-- Swap Proposals Received -->
                     <div class="proposals-container">
@@ -930,13 +949,13 @@
                         
                         <div class="proposal-card">
                             <div class="proposal-header">
-                                <div class="proposal-from">Sarah Wilson</div>
+                                <div class="proposal-from">Jere Mathews</div>
                                 <div class="proposal-date">Received: Oct 18, 2023</div>
                             </div>
                             
                             <div class="proposal-details">
                                 <div class="proposal-side">
-                                    <h4><i class="fas fa-user"></i> Sarah's Position</h4>
+                                    <h4><i class="fas fa-user"></i> Jere's Position</h4>
                                     <div class="match-detail">
                                         <div class="match-label">Department:</div>
                                         <div class="match-value">Education</div>
@@ -947,7 +966,7 @@
                                     </div>
                                     <div class="match-detail">
                                         <div class="match-label">Location:</div>
-                                        <div class="match-value">Western Region</div>
+                                        <div class="match-value">Mzuzu</div>
                                     </div>
                                     <div class="match-detail">
                                         <div class="match-label">Grade Level:</div>
@@ -963,11 +982,11 @@
                                     </div>
                                     <div class="match-detail">
                                         <div class="match-label">Position:</div>
-                                        <div class="match-value">Senior Education Officer</div>
+                                        <div class="match-value">Region Education Officer</div>
                                     </div>
                                     <div class="match-detail">
                                         <div class="match-label">Location:</div>
-                                        <div class="match-value">Capital City</div>
+                                        <div class="match-value">Lilongwe City</div>
                                     </div>
                                     <div class="match-detail">
                                         <div class="match-label">Grade Level:</div>
